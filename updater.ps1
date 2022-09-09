@@ -34,7 +34,8 @@ Try {
 	dlFile -i "https://update.code.visualstudio.com/latest/win32-x64-user/stable" -o "$($PSScriptRoot)\bin\vscode.exe"
 	dlFile -i "https://download.sysinternals.com/files/SysinternalsSuite.zip" -o "$($PSScriptRoot)\bin\sysinternals.zip"
 	dlFile -i "https://github.com/dnSpy/dnSpy/releases/latest/download/dnSpy-net-win64.zip" -o "$($PSScriptRoot)\bin\dnSpy.zip"
-	dlFile -i "https://de1-dl.techpowerup.com/files/S1VIrmlWWCQzX4dzLZXDHA/1650687396/Visual-C-Runtimes-All-in-One-Feb-2022.zip" -o "$($PSScriptRoot)\bin\vcredist_aio.zip"
+	# This link must be updated manually
+	dlFile -i 'https://de1-dl.techpowerup.com/files/jppJEai2MQTrHR75bicEYg/1662787324/Visual-C-Runtimes-All-in-One-Jul-2022.zip' -o "$($PSScriptRoot)\bin\vcredist_aio.zip"
 }
 Catch {
 	$error[0] | Format-List * -Force
