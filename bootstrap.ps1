@@ -71,7 +71,7 @@ $program = "C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\ninite.exe"
 Start-Process -FilePath $program -Wait
 $program = "C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\vscode.exe"
 Start-Process -FilePath $program -ArgumentList "/verysilent /suppressmsgboxes /MERGETASKS=`"!runcode,desktopicon,quicklaunchicon,addcontextmenufiles,addcontextmenufolders,addtopath`"" -Wait
-Start-Process -FilePath "${env:TEMP}\vcredist_aio\install_all.bat" -WindowStyle hidden -Wait
+Start-Process -FilePath "${env:TEMP}\vcredist_aio\VisualCppRedist_AIO_x86_x64.exe" -Wait
 
 #
 # Create Shortcuts
