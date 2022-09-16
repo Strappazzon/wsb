@@ -10,7 +10,7 @@ For configuration options in the `.wsb` file please read <https://docs.microsoft
 - Visual Studio Code
 - Sysinternals Suite
 - dnSpy
-- [Visual C++ Redistributable Runtimes All-in-One](https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/)
+- [VisualCppRedist AIO](https://github.com/abbodi1406/vcredist)
 
 ## Additional configuration
 
