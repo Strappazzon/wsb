@@ -1,41 +1,39 @@
-# https://github.com/firefart/sandbox/blob/master/downloadFiles.ps1
-function dlFile {
-	param ([string]$i, [string]$o)
+Function Get-File([String]$File, [String]$O) {
+	<#
+	.SYNOPSIS
+	Download a file from the Internet
+	.PARAMETER File
+	URL to the file
+	.PARAMETER O
+	Output file name
+	.EXAMPLE
+	Get-File -File "https://dl.example.com/Program_v13_x64.exe" -O "C:\bin\program.exe"
+	.LINK
+	https://github.com/firefart/sandbox/blob/master/downloadFiles.ps1
+	#>
 
-	Write-Output "Downloading $($i)"
-
-	$wc = New-Object System.Net.WebClient
-
+	$obj = New-Object System.Net.WebClient
 	Try {
-		$wc.DownloadFile($i, $o)
+		Write-Output "Downloading $($File)"
+		$obj.DownloadFile($File, $O)
 	}
 	Catch {
-		throw $_
+		Throw $_
 	}
 
 	Write-Output "Download complete."
-}
-
-# https://github.com/julianosaless/powershellzip/blob/be12549e2f36c23e923821d547ce55194b1da784/powershell-zip.ps1#L25
-function unzip {
-	param([string]$i, [string]$o)
-
-	Write-Output "Expanding archive $($i)"
-
-	[System.IO.Compression.ZipFile]::ExtractToDirectory($i, $o) *>$null
-
-	Write-Output "Done."
 }
 
 #
 # Download Tools
 #
 Try {
-	dlFile -i "https://update.code.visualstudio.com/latest/win32-x64-user/stable" -o "$($PSScriptRoot)\bin\vscode.exe"
-	dlFile -i "https://download.sysinternals.com/files/SysinternalsSuite.zip" -o "$($PSScriptRoot)\bin\sysinternals.zip"
-	dlFile -i "https://github.com/dnSpy/dnSpy/releases/latest/download/dnSpy-net-win64.zip" -o "$($PSScriptRoot)\bin\dnSpy.zip"
-	$latestFromJson = Invoke-WebRequest 'https://api.github.com/repos/abbodi1406/vcredist/releases/latest' | Select-Object -Expand Content | ConvertFrom-Json
-	dlFile -i $latestFromJson.assets.browser_download_url -o "$($PSScriptRoot)\bin\vcredist_aio.zip"
+	Get-File -File "https://update.code.visualstudio.com/latest/win32-x64-user/stable" -O "$($PSScriptRoot)\bin\vscode.exe"
+	Get-File -File "https://download.sysinternals.com/files/SysinternalsSuite.zip" -O "$($PSScriptRoot)\bin\sysinternals.zip"
+	Get-File -File "https://github.com/dnSpy/dnSpy/releases/latest/download/dnSpy-net-win64.zip" -O "$($PSScriptRoot)\bin\dnSpy.zip"
+	# Get latest version of VisualCppRedist AIO
+	$versionFromJson = Invoke-WebRequest "https://api.github.com/repos/abbodi1406/vcredist/releases/latest" | Select-Object -Expand Content | ConvertFrom-Json
+	Get-File -File $versionFromJson.assets.browser_download_url -O "$($PSScriptRoot)\bin\vcredist_aio.zip"
 }
 Catch {
 	$error[0] | Format-List * -Force
@@ -45,9 +43,9 @@ Catch {
 # Unzip Tools
 #
 Try {
-	unzip -i "$($PSScriptRoot)\bin\sysinternals.zip" -o "$($PSScriptRoot)\bin\SysinternalsSuite\"
-	unzip -i "$($PSScriptRoot)\bin\dnSpy.zip" -o "$($PSScriptRoot)\bin\dnSpy\"
-	unzip -i "$($PSScriptRoot)\bin\vcredist_aio.zip" -o "$($PSScriptRoot)\bin\vcredist_aio\"
+	Expand-Archive -LiteralPath "$($PSScriptRoot)\bin\sysinternals.zip" -DestinationPath "$($PSScriptRoot)\bin\SysinternalsSuite"
+	Expand-Archive -LiteralPath "$($PSScriptRoot)\bin\dnSpy.zip" -DestinationPath "$($PSScriptRoot)\bin\dnSpy"
+	Expand-Archive -LiteralPath "$($PSScriptRoot)\bin\vcredist_aio.zip" -DestinationPath "$($PSScriptRoot)\bin\vcredist_aio"
 }
 Catch {
 	$error[0] | Format-List * -Force
