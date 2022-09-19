@@ -1,0 +1,4 @@
+bin/**
+!bin/.gitkeep
+theme/**
+!theme/.gitkeep
