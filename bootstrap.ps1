@@ -40,7 +40,16 @@ Function Show-MessageBox([String]$Message, [String]$Title, [Int]$Buttons, [Int]$
 	[System.Windows.MessageBox]::Show($Message, $Title, $Buttons, $Type)
 }
 
+Function Disable-Volume {
+	<#
+	.SYNOPSIS
+	Mute sounds volume
+	.LINK
+	https://stackoverflow.com/a/12397737
+	#>
 
+	$obj = New-Object -ComObject WScript.Shell
+	$obj.SendKeys([Char]173)
 }
 
 # https://stackoverflow.com/a/9701907/16036749
@@ -158,6 +167,8 @@ Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer
 Update-Wallpaper -Image "C:\Users\WDAGUtilityAccount\Desktop\bootstrap\theme\wallpaper.png"
 #Invoke-Command {c:\windows\System32\RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters 1,True}
 
+# Mute sounds
+Disable-Volume
 
 Restart-Explorer
 
