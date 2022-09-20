@@ -63,8 +63,6 @@ Function New-Shortcut([String]$Target, [String]$Destination) {
 	Path to shortcut including the .lnk extension
 	.EXAMPLE
 	New-Shortcut -Target "C:\bin\Program.exe" -Destination "C:\Users\WDAGUtilityAccount\Desktop\Program.lnk"
-	.LINK
-	https://www.joseespitia.com/2017/09/15/set-wallpaper-powershell-function/
 	#>
 
 	$WScriptShell = New-Object -ComObject WScript.Shell
@@ -81,6 +79,8 @@ Function Update-Wallpaper([String]$Image) {
 	Path to the image
 	.EXAMPLE
 	Set-WallPaper -Image "C:\Wallpaper\Default.jpg"
+	.LINK
+	https://www.joseespitia.com/2017/09/15/set-wallpaper-powershell-function/
 	#>
 
 Add-Type -TypeDefinition @"
