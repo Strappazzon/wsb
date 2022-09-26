@@ -1,3 +1,5 @@
+<img src="https://img.icons8.com/fluency/144/000000/automatic.png" align="right">
+
 # Windows Sandbox Configuration
 
 This is my configuration for Windows Sandbox.
