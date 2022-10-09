@@ -83,18 +83,18 @@ Function Update-Wallpaper([String]$Image) {
 	https://www.joseespitia.com/2017/09/15/set-wallpaper-powershell-function/
 	#>
 
-Add-Type -TypeDefinition @"
+	Add-Type -TypeDefinition @'
 	using System;
 	using System.Runtime.InteropServices;
 	public class Params {
 		[DllImport("User32.dll",CharSet=CharSet.Unicode)]
 		public static extern int SystemParametersInfo (Int32 uAction, Int32 uParam, String lpvParam, Int32 fuWinIni);
 	}
-"@
+'@
 
 	$SPI_SETDESKWALLPAPER = 0x0014
-	$UpdateIniFile        = 0x01
-	$SendChangeEvent      = 0x02
+	$UpdateIniFile = 0x01
+	$SendChangeEvent = 0x02
 
 	$fWinIni = $UpdateIniFile -bor $SendChangeEvent
 
@@ -114,12 +114,10 @@ Function Restart-Explorer {
 	# Verify that Windows Explorer has restarted
 	Try {
 		$p = Get-Process -Name Explorer -ErrorAction Stop
-	}
-	Catch {
+	} Catch {
 		Try {
 			Start-Process explorer.exe
-		}
-		Catch {
+		} Catch {
 			# This should never be called
 			Throw $_
 		}
@@ -131,40 +129,40 @@ Function Restart-Explorer {
 #
 
 # Disable News and Interests
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds" -Name "ShellFeedsTaskbarViewMode" -Type DWord -Value 2 -Force
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds' -Name 'ShellFeedsTaskbarViewMode' -Type DWord -Value 2 -Force
 # Hide search in taskbar
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'SearchboxTaskbarMode' -Type DWord -Value 0
 # Small taskbar icons
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarSmallIcons" -Type DWord -Value 1
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarSmallIcons' -Type DWord -Value 1
 # Hide Task View button in taskbar
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowTaskViewButton' -Type DWord -Value 0
 # Light theme
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Type DWord -Value 1
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Type DWord -Value 1
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'AppsUseLightTheme' -Type DWord -Value 1
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'SystemUsesLightTheme' -Type DWord -Value 1
 # Small desktop icons
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\Shell\Bags\1\Desktop" -Name "IconSize" -Type DWord -Value 32
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\Shell\Bags\1\Desktop" -Name "LogicalViewMode" -Type DWord -Value 3
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\Shell\Bags\1\Desktop" -Name "Mode" -Type DWord -Value 1
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\Shell\Bags\1\Desktop' -Name 'IconSize' -Type DWord -Value 32
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\Shell\Bags\1\Desktop' -Name 'LogicalViewMode' -Type DWord -Value 3
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\Shell\Bags\1\Desktop' -Name 'Mode' -Type DWord -Value 1
 # Performance settings
-Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "DragFullWindows" -Type String -Value 0
-Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "MenuShowDelay" -Type String -Value 200
-Set-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name "KeyboardDelay" -Type DWord -Value 0
-Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "UserPreferencesMask" -Type Binary -Value ([byte[]](144,18,3,128,16,0,0,0))
-Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "MinAnimate" -Type String -Value 0
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ListviewAlphaSelect" -Type DWord -Value 0
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ListviewShadow" -Type DWord -Value 0
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarAnimations" -Type DWord -Value 0
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Type DWord -Value 3
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\DWM" "EnableAeroPeek" -Type DWord -Value 0
+Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name 'DragFullWindows' -Type String -Value 0
+Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name 'MenuShowDelay' -Type String -Value 200
+Set-ItemProperty -Path 'HKCU:\Control Panel\Keyboard' -Name 'KeyboardDelay' -Type DWord -Value 0
+Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name 'UserPreferencesMask' -Type Binary -Value ([byte[]](144, 18, 3, 128, 16, 0, 0, 0))
+Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'MinAnimate' -Type String -Value 0
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ListviewAlphaSelect' -Type DWord -Value 0
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ListviewShadow' -Type DWord -Value 0
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarAnimations' -Type DWord -Value 0
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects' -Name 'VisualFXSetting' -Type DWord -Value 3
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\DWM' 'EnableAeroPeek' -Type DWord -Value 0
 # Display Windows version over wallpaper
-Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "PaintDesktopVersion" -Type DWord -Value 1
+Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name 'PaintDesktopVersion' -Type DWord -Value 1
 # Show file name extensions
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Type DWord -Value 0
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideFileExt' -Type DWord -Value 0
 # Make navigation pane show all folders
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "NavPaneShowAllFolders" -Type DWord -Value 1
+Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'NavPaneShowAllFolders' -Type DWord -Value 1
 
 #Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\" -Name "Wallpaper" -Value "C:\Users\WDAGUtilityAccount\Desktop\bootstrap\theme\wallpaper.png"
-Update-Wallpaper -Image "C:\Users\WDAGUtilityAccount\Desktop\bootstrap\theme\wallpaper.png"
+Update-Wallpaper -Image 'C:\Users\WDAGUtilityAccount\Desktop\bootstrap\theme\wallpaper.png'
 #Invoke-Command {c:\windows\System32\RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters 1,True}
 
 # Mute sounds
@@ -176,25 +174,25 @@ Restart-Explorer
 # Copy portable software/tools in a writable directory
 #
 
-Copy-Item "C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\SysinternalsSuite" -Destination "C:\bin\SysinternalsSuite" -Recurse -Container
-Copy-Item "C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\dnSpy" -Destination "C:\bin\dnSpy" -Recurse -Container
-Copy-Item "C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\vcredist_aio" -Destination "${env:TEMP}\vcredist_aio" -Recurse -Container
+Copy-Item 'C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\SysinternalsSuite' -Destination 'C:\bin\SysinternalsSuite' -Recurse -Container
+Copy-Item 'C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\dnSpy' -Destination 'C:\bin\dnSpy' -Recurse -Container
+Copy-Item 'C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\vcredist_aio' -Destination "${env:TEMP}\vcredist_aio" -Recurse -Container
 
 #
 # Create Shortcuts
 #
 
-New-Shortcut -Target "C:\bin\SysinternalsSuite" -Destination "C:\Users\WDAGUtilityAccount\Desktop\Sysinternals.lnk"
-New-Shortcut -Target "C:\bin\dnSpy\dnSpy.exe" -Destination "C:\Users\WDAGUtilityAccount\Desktop\dnSpy.lnk"
+New-Shortcut -Target 'C:\bin\SysinternalsSuite' -Destination 'C:\Users\WDAGUtilityAccount\Desktop\Sysinternals.lnk'
+New-Shortcut -Target 'C:\bin\dnSpy\dnSpy.exe' -Destination 'C:\Users\WDAGUtilityAccount\Desktop\dnSpy.lnk'
 
 #
 # Software Setup
 #
 
 Start-Process -FilePath "${env:TEMP}\vcredist_aio\VisualCppRedist_AIO_x86_x64.exe" -Wait
-$program = "C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\ninite.exe"
+$program = 'C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\ninite.exe'
 Start-Process -FilePath $program -Wait
-$program = "C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\vscode.exe"
+$program = 'C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\vscode.exe'
 Start-Process -FilePath $program -ArgumentList "/verysilent /suppressmsgboxes /MERGETASKS=`"!runcode,desktopicon,quicklaunchicon,addcontextmenufiles,addcontextmenufolders,addtopath`"" -Wait
 
-Show-MessageBox -Message "Sandbox set-up complete." -Title "Windows Sandbox" -Buttons 0 -Type 64
+Show-MessageBox -Message 'Sandbox set-up complete.' -Title 'Windows Sandbox' -Buttons 0 -Type 64
