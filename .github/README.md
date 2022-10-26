@@ -8,26 +8,39 @@ For configuration options in the `.wsb` file please read <https://docs.microsoft
 
 ## Software installed
 
-- [Ninite](https://ninite.com/)
-- Visual Studio Code
-- Sysinternals Suite
-- dnSpy
-- [VisualCppRedist AIO](https://github.com/abbodi1406/vcredist)
+- [scoop](https://github.com/ScoopInstaller/Scoop) with:
+  - [dotPeek](https://www.jetbrains.com/decompiler/)
+  - [HxD](https://mh-nexus.de/en/hxd/)
+  - Mozilla Firefox
+  - PowerShell
+  - Sysinternals Suite
+  - [VisualCppRedist AIO](https://github.com/abbodi1406/vcredist)
+  - Visual Studio Code
 
 ## Additional configuration
 
 - Change desktop background
 - Use small desktop icons
-- Use light system theme
 - Adjust visual effects for performance
+- Show file name extensions
+
+### Windows 10 only
+
+- Use light system theme
 - Display Windows version on desktop
 - Disable News and Interests
-- Show file name extensions
 
 ## Usage
 
-- Create your WSB configuration file from scratch or start from mine
-- Create your [Ninite](https://ninite.com/), place it inside `\bin\ninite.exe`
-- Run `updater.ps1` to download the latest versions of the software that will be installed
-- Edit WSB configuration file to match your folder structure
+- [Create](https://leestevetk.github.io/WSBEditor/WSBEditor-Latest.html) your WSB configuration file
+- Make sure the WSB configuration matches your own folder structure
+- Edit scoop packages that will be installed
 - Double click the `.wsb` file to launch the sandbox
+
+## Getting Started
+
+```ps1
+cd ~\.config
+git clone https://github.com/Strappazzon/wsb ; cd wsb
+WindowsSandbox .\config.wsb
+```

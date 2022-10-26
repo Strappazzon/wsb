@@ -2,44 +2,6 @@
 # Global Functions
 #
 
-Function Show-MessageBox([String]$Message, [String]$Title, [Int]$Buttons, [Int]$Type) {
-	<#
-	.SYNOPSIS
-	Display a MessageBox
-	.PARAMETER Message
-	The content of the MessageBox
-	.PARAMETER Title
-	Title of the MessageBox
-	.PARAMETER Buttons
-	0 Ok
-	1 OkCancel
-	2 AbortRetryIgnore
-	3 The message box contains Yes, No, and Cancel buttons.
-	4 YesNo
-	5 RetryCancel
-	6 CancelTryContinue
-	.LINK
-	https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.messageboxbuttons
-	.PARAMETER Type
-	0 None
-	16 Error
-	16 Hand
-	16 Stop
-	32 Question
-	48 Exclamation
-	48 Warning
-	64 Asterisk
-	64 Information
-	.LINK
-	https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.messageboxicon
-	.EXAMPLE
-	Show-MessageBox -Message "This is a test message" -Title "Test" -Buttons 0 -Type 32
-	#>
-
-	Add-Type -AssemblyName PresentationFramework
-	[System.Windows.MessageBox]::Show($Message, $Title, $Buttons, $Type)
-}
-
 Function Disable-Volume {
 	<#
 	.SYNOPSIS
@@ -161,8 +123,8 @@ Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer
 # Make navigation pane show all folders
 Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'NavPaneShowAllFolders' -Type DWord -Value 1
 
-#Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\" -Name "Wallpaper" -Value "C:\Users\WDAGUtilityAccount\Desktop\bootstrap\theme\wallpaper.png"
-Update-Wallpaper -Image 'C:\Users\WDAGUtilityAccount\Desktop\bootstrap\theme\wallpaper.png'
+#Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\" -Name "Wallpaper" -Value "C:\bootstrap\theme\wallpaper.png"
+Update-Wallpaper -Image 'C:\bootstrap\theme\wallpaper.png'
 #Invoke-Command {c:\windows\System32\RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters 1,True}
 
 # Mute sounds
@@ -171,28 +133,60 @@ Disable-Volume
 Restart-Explorer
 
 #
-# Copy portable software/tools in a writable directory
+# scoop setup
 #
 
-Copy-Item 'C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\SysinternalsSuite' -Destination 'C:\bin\SysinternalsSuite' -Recurse -Container
-Copy-Item 'C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\dnSpy' -Destination 'C:\bin\dnSpy' -Recurse -Container
-Copy-Item 'C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\vcredist_aio' -Destination "${env:TEMP}\vcredist_aio" -Recurse -Container
+Invoke-Expression "& {$(Invoke-RestMethod get.scoop.sh)} -RunAsAdmin" | Out-Null
+
+$sources = @(
+	'extras',
+	'versions'
+)
+$pkgs = @(
+	'dotpeek',
+	'firefox',
+	'hxd',
+	'pwsh',
+	'sysinternals',
+	'vcredist-aio',
+	'vscode'
+)
+scoop config aria2-warning-enabled false # Disable aria2 warning
+scoop install 7zip aria2 git # Essentials
+
+# Add sources and install packages
+$sources | ForEach-Object { scoop bucket add $_ }
+$pkgs | ForEach-Object { scoop install $_ }
+
+# Import registry keys
+reg import "${env:USERPROFILE}\scoop\apps\7zip\current\install-context.reg"
+reg import "${env:USERPROFILE}\scoop\apps\vscode\current\install-associations.reg"
+reg import "${env:USERPROFILE}\scoop\apps\vscode\current\install-context.reg"
+
+# VSCode settings
+$vscodeSettings = '@
+{
+  "security.workspace.trust.enabled": false,
+  "workbench.colorTheme": "Default Light+"
+}
+@'
+New-Item "${env:USERPROFILE}\scoop\apps\vscode\current\data\user-data\User" -ItemType Directory -Force
+$vscodeSettings | Out-File "${env:USERPROFILE}\scoop\apps\vscode\current\data\user-data\User\settings.json"
 
 #
 # Create Shortcuts
 #
 
-New-Shortcut -Target 'C:\bin\SysinternalsSuite' -Destination 'C:\Users\WDAGUtilityAccount\Desktop\Sysinternals.lnk'
-New-Shortcut -Target 'C:\bin\dnSpy\dnSpy.exe' -Destination 'C:\Users\WDAGUtilityAccount\Desktop\dnSpy.lnk'
+New-Shortcut -Target "${env:USERPROFILE}\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Scoop Apps\SysInternals" -Destination "${env:USERPROFILE}\Desktop\SysInternals.lnk"
+New-Shortcut -Target "${env:USERPROFILE}\scoop\apps\dotpeek\current\dotpeek.exe" -Destination "${env:USERPROFILE}\Desktop\dotPeek.lnk"
+New-Shortcut -Target "${env:USERPROFILE}\scoop\apps\firefox\current\firefox.exe" -Destination "${env:USERPROFILE}\Desktop\Mozilla Firefox.lnk"
+New-Shortcut -Target "${env:USERPROFILE}\scoop\apps\hxd\current\hxd.exe" -Destination "${env:USERPROFILE}\Desktop\HxD.lnk"
+New-Shortcut -Target "${env:USERPROFILE}\scoop\apps\pwsh\current\pwsh.exe" -Destination "${env:USERPROFILE}\Desktop\PowerShell.lnk"
+New-Shortcut -Target "${env:USERPROFILE}\scoop\apps\vscode\current\Code.exe" -Destination "${env:USERPROFILE}\Desktop\Visual Studio Code.lnk"
 
 #
-# Software Setup
+# End
 #
 
-Start-Process -FilePath "${env:TEMP}\vcredist_aio\VisualCppRedist_AIO_x86_x64.exe" -Wait
-$program = 'C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\ninite.exe'
-Start-Process -FilePath $program -Wait
-$program = 'C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bin\vscode.exe'
-Start-Process -FilePath $program -ArgumentList "/verysilent /suppressmsgboxes /MERGETASKS=`"!runcode,desktopicon,quicklaunchicon,addcontextmenufiles,addcontextmenufolders,addtopath`"" -Wait
-
-Show-MessageBox -Message 'Sandbox set-up complete.' -Title 'Windows Sandbox' -Buttons 0 -Type 64
+Write-Host 'Sandbox set-up complete. Press any key to exit.' -ForegroundColor Blue
+$x = $host.ui.RawUI.ReadKey('NoEcho,IncludeKeyDown')

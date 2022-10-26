@@ -1,14 +1,12 @@
 <Configuration>
-  <VGpu>Disable</VGpu>
-  <Networking>Enable</Networking>
-  <MappedFolders>
-    <MappedFolder>
-      <HostFolder>D:\Windows Sandbox</HostFolder>
-      <SandboxFolder>C:\Users\WDAGUtilityAccount\Desktop\bootstrap</SandboxFolder>
-      <ReadOnly>true</ReadOnly>
-    </MappedFolder>
-  </MappedFolders>
-  <LogonCommand>
-    <Command>powershell.exe -executionpolicy bypass -file "C:\Users\WDAGUtilityAccount\Desktop\bootstrap\bootstrap.ps1"</Command>
-  </LogonCommand>
+    <MappedFolders>
+        <MappedFolder>
+            <HostFolder>C:\Users\Username\.config\wsb</HostFolder>
+            <SandboxFolder>C:\bootstrap</SandboxFolder>
+            <ReadOnly>true</ReadOnly>
+        </MappedFolder>
+    </MappedFolders>
+    <LogonCommand>
+        <Command>powershell.exe -ExecutionPolicy Bypass -Command "start powershell.exe {-File C:\bootstrap\bootstrap.ps1}"</Command>
+    </LogonCommand>
 </Configuration>
