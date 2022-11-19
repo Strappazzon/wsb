@@ -164,12 +164,12 @@ reg import "${env:USERPROFILE}\scoop\apps\vscode\current\install-associations.re
 reg import "${env:USERPROFILE}\scoop\apps\vscode\current\install-context.reg"
 
 # VSCode settings
-$vscodeSettings = '@
+$vscodeSettings = @'
 {
   "security.workspace.trust.enabled": false,
   "workbench.colorTheme": "Default Light+"
 }
-@'
+'@
 New-Item "${env:USERPROFILE}\scoop\apps\vscode\current\data\user-data\User" -ItemType Directory -Force
 $vscodeSettings | Out-File "${env:USERPROFILE}\scoop\apps\vscode\current\data\user-data\User\settings.json"
 
