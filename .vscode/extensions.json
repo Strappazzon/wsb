@@ -1,0 +1,7 @@
+{
+	"recommendations": [
+		"DavidAnson.vscode-markdownlint",
+		"DotJoshJohnson.xml",
+		"ms-vscode.powershell"
+	]
+}

@@ -1,0 +1,12 @@
+<Configuration>
+	<MappedFolders>
+		<MappedFolder>
+			<HostFolder>C:\Users\Username\.config\wsb</HostFolder>
+			<SandboxFolder>C:\bootstrap</SandboxFolder>
+			<ReadOnly>true</ReadOnly>
+		</MappedFolder>
+	</MappedFolders>
+	<LogonCommand>
+		<Command>powershell.exe -ExecutionPolicy Bypass -Scope Process -Command "start powershell.exe {-File C:\bootstrap\bootstrap.ps1}"</Command>
+	</LogonCommand>
+</Configuration>

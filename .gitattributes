@@ -1,4 +1,5 @@
-* text eol=crlf
+* text=auto eol=crlf
 
-# GitHub language statistics, see https://github.com/github/linguist/blob/master/docs/overrides.md
+# GitHub language statistics
+# See https://github.com/github/linguist/blob/master/docs/overrides.md
 *.wsb linguist-language=XML
