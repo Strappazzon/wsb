@@ -163,9 +163,12 @@ Set-RegistryValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\Shell\Bags\1\Desktop' 
 Set-RegistryValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\Shell\Bags\1\Desktop' -Name 'LogicalViewMode' -Value 3  -Type DWord
 Set-RegistryValue -Path 'HKCU:\SOFTWARE\Microsoft\Windows\Shell\Bags\1\Desktop' -Name 'Mode'            -Value 1  -Type DWord
 # Wallpaper
-Update-Wallpaper -Image 'C:\bootstrap\theme\wallpaper.jpg'
-# Set-RegistryValue -Path 'HKCU:\Control Panel\Desktop\' -Name 'Wallpaper' -Value 'C:\bootstrap\theme\wallpaper.jpg' -Type String
-# Invoke-Command { C:\windows\System32\RUNDLL32.EXE user32.dll, UpdatePerUserSystemParameters 1, True }
+$wallpaper = 'C:\bootstrap\theme\wallpaper.jpg'
+If (Test-Path -Path "${wallpaper}" -PathType Leaf) {
+  Update-Wallpaper -Image $wallpaper
+  # Set-RegistryValue -Path 'HKCU:\Control Panel\Desktop\' -Name 'Wallpaper' -Value "${wallpaper}" -Type String
+  # Invoke-Command { C:\windows\System32\RUNDLL32.EXE user32.dll, UpdatePerUserSystemParameters 1, True }
+}
 
 # Start menu
 # "More recommendations" setting
