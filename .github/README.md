@@ -1,46 +1,82 @@
-<img src="https://img.icons8.com/fluency/144/000000/automatic.png" align="right">
+<!-- markdownlint-disable MD033 MD041 -->
+<div align="center">
+  <img width="96" src="./assets/logo.png" alt="Logo">
+</div>
 
-# Windows Sandbox Configuration
+<div align="center">
+  <strong>wsb</strong>
+</div>
 
-This is my configuration for Windows Sandbox.
+<p align="center">
+  <em>Logon script for Windows Sandbox</em>
+</p>
+<!-- markdownlint-enable MD033 MD041 -->
 
-For configuration options in the `.wsb` file please read <https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-sandbox/windows-sandbox-configure-using-wsb-file>.
+This is my personal logon script for Windows Sandbox.
 
-## Software installed
-
-- [scoop](https://github.com/ScoopInstaller/Scoop) with:
-  - [dotPeek](https://www.jetbrains.com/decompiler/)
-  - [HxD](https://mh-nexus.de/en/hxd/)
-  - Mozilla Firefox
-  - PowerShell
-  - Sysinternals Suite
-  - [VisualCppRedist AIO](https://github.com/abbodi1406/vcredist)
-  - Visual Studio Code
-
-## Additional configuration
-
-- Change desktop background
-- Use small desktop icons
-- Adjust visual effects for performance
-- Show file name extensions
-
-### Windows 10 only
-
-- Use light system theme
-- Display Windows version on desktop
-- Disable News and Interests
-
-## Usage
-
-- [Create](https://leestevetk.github.io/WSBEditor/WSBEditor-Latest.html) your WSB configuration file
-- Make sure the WSB configuration matches your own folder structure
-- Edit scoop packages that will be installed
-- Double click the `.wsb` file to launch the sandbox
+Tested on Windows 11. Some things may not work on a Windows 10 sandbox.
 
 ## Getting Started
 
-```ps1
-cd ~\.config
-git clone https://github.com/Strappazzon/wsb ; cd wsb
-WindowsSandbox .\config.wsb
+Clone the repo and create your own configuration file.
+
+```bat
+git clone https://github.com/Strappazzon/wsb.git
+cd wsb/
+cp config.example.wsb config.wsb
 ```
+
+For all configuration options, see: [Windows Sandbox configuration](https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file).
+You can also create your configuration file with [WSBEditor](https://leestevetk.github.io/WSBEditor/WSBEditor-Latest.html).
+
+## What the script does
+
+This script will launch at logon and will change and install the following:
+
+### Settings
+
+- Desktop
+  - Set small icon size
+  - Change wallpaper (if provided)
+- Disable Windows SmartScreen
+  - When running unsigned executables Windows tries to install SmartScreen.
+    This tweak will allow execution.
+- Start menu
+  - Disable tips
+  - Use "More recommendations" layout
+- Performance tweaks
+  - Disable animations
+  - Disable Peek
+  - Disable shadows
+  - Disabe transparency
+- Set Dark theme
+- Taskbar
+  - Don't combine buttons
+  - Hide search box
+  - Hide "Task View" button
+  - Show "End Task" when right clicking (*Windows 11 only*)
+  - Use small icons (*Windows 10 only*)
+- Windows Explorer
+  - Enable compact mode
+  - Launch Windows Explorer to "This PC"
+  - Show all folders in the side panel
+  - Show file extensions
+  - Show protected system files
+
+### Software
+
+- 7zip
+- dotPeek
+- Git
+- [HxD](https://mh-nexus.de/en/hxd/)
+- Mozilla Firefox
+- NanaZip Preview
+- PowerShell
+- [SysInternals Suite](https://learn.microsoft.com/en-us/sysinternals/)
+- Visual Studio Code
+  - Empty startup editor
+  - Updates disabled
+  - Workspace Trust disabled
+- Windows Terminal
+
+All software is installed using [scoop](https://github.com/ScoopInstaller/Scoop) and [winget](https://learn.microsoft.com/en-us/windows/package-manager/).
