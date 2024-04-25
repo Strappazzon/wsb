@@ -53,5 +53,7 @@
 	"powershell.codeFormatting.preset": "OTBS",
 	"powershell.codeFormatting.trimWhitespaceAroundPipe": true,
 	"powershell.codeFormatting.useConstantStrings": true,
-	"powershell.codeFormatting.useCorrectCasing": true
+	"powershell.codeFormatting.useCorrectCasing": true,
+	"powershell.scriptAnalysis.enable": true,
+	"powershell.scriptAnalysis.settingsPath": "./PSScriptAnalyzerSettings.psd1"
 }
