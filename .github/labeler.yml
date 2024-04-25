@@ -1,0 +1,19 @@
+cicd:
+  - ".github/workflows/**"
+
+config:
+  - ".github/*.yml"
+  - ".vscode/**"
+  - ".editorconfig"
+  - ".gitattributes"
+  - ".gitignore"
+  - "*.psd1"
+  - "*.wsb"
+
+customization:
+  - "theme/**"
+
+documentation:
+  - ".github/CONTRIBUTING.md"
+  - "**/README.md"
+  - "SUPPORT.md"

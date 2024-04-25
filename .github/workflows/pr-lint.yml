@@ -1,0 +1,30 @@
+name: Lint PowerShell
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "**/*.ps1"
+      - "**/*.psd1"
+
+permissions:
+  pull-requests: write
+
+jobs:
+  lint:
+    name: Run PSScriptAnalyzer
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4.1.4
+
+      - name: Lint script
+        uses: devblackops/github-action-psscriptanalyzer@v2.4.0
+        with:
+          settingsPath: "./PSScriptAnalyzerSettings.psd1"
+          sendComment: true
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          failOnErrors: true
+          failOnWarnings: true
+          failOnInfos: false
