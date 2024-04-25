@@ -1,0 +1,60 @@
+name: Bug Report
+description: Create a new ticket for a bug.
+
+labels:
+  - "bug"
+assignees:
+  - Strappazzon
+
+body:
+  - type: markdown
+    attributes:
+      value: >2
+        **NOTE:** If you are reporting a security issue, read the
+        [Security Policy](https://github.com/Strappazzon/.github/blob/-/SECURITY.md) instead of opening a public ticket.
+
+  - type: markdown
+    attributes:
+      value: Read the [Contributing Guidelines](https://github.com/Strappazzon/wsb/blob/-/.github/CONTRIBUTING.md) before opening a ticket.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Provide a description of the issue.
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Provide a screenshot showing the issue.
+    validations:
+      required: false
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      description: The operating system you are using.
+      placeholder: Windows 11
+    validations:
+      required: true
+
+  - type: textarea
+    id: fix
+    attributes:
+      label: Proposed Fix
+      description: Explain how you think this should be fixed.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: coc
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to the [Code of Conduct](https://github.com/Strappazzon/.github/blob/-/CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow the Code of Conduct.
+          required: true
