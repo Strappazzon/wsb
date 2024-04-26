@@ -1,0 +1,36 @@
+name: Package Request
+description: Suggest a package that will be added to the logon script
+
+labels:
+  - "package"
+assignees:
+  - Strappazzon
+
+title: "[Package Request]: "
+body:
+  - type: input
+    id: package
+    attributes:
+      label: Package ID
+      description: "Provide the full ID of the package. For scoop packages provide the bucket as well, like so: bucket/package-name."
+      placeholder: Example.Package
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason
+      description: Why do you want this package added?
+      placeholder: This package would be useful because...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: coc
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to the [Code of Conduct](https://github.com/Strappazzon/.github/blob/-/CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow the Code of Conduct.
+          required: true

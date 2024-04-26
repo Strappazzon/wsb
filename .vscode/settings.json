@@ -1,0 +1,66 @@
+{
+	"[json][jsonc]": {
+		"editor.defaultFormatter": "vscode.json-language-features",
+		"editor.formatOnPaste": true,
+		"editor.formatOnSave": true,
+		"editor.insertSpaces": false,
+		"editor.tabSize": 4
+	},
+	"[markdown]": {
+		"editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+		"editor.detectIndentation": false,
+		"editor.quickSuggestions": {
+			"other": "off"
+		},
+		"editor.wordWrap": "off",
+		"files.trimTrailingWhitespace": false
+	},
+	"[powershell]": {
+		"editor.defaultFormatter": "ms-vscode.powershell",
+		"editor.formatOnPaste": true,
+		"editor.formatOnSave": true,
+		"files.autoGuessEncoding": false,
+		"files.encoding": "windows1252"
+	},
+	"[scminput]": {
+		"editor.rulers": [
+			70
+		]
+	},
+	"[xml]": {
+		"editor.defaultFormatter": "DotJoshJohnson.xml",
+		"editor.formatOnPaste": true,
+		"editor.formatOnSave": true,
+		"editor.insertSpaces": false,
+		"editor.tabSize": 4
+	},
+	"[yaml]": {
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2
+	},
+	"editor.defaultFormatter": null,
+	"editor.detectIndentation": false,
+	"editor.rulers": [],
+	"files.associations": {
+		"*.wsb": "xml",
+	},
+	"files.insertFinalNewline": true,
+	"files.trimFinalNewlines": true,
+	"files.trimTrailingWhitespace": true,
+	"git.inputValidation": true,
+	"git.inputValidationLength": 70,
+	"git.inputValidationSubjectLength": 70,
+	"markdown.validate.enabled": false,
+	"powershell.codeFormatting.autoCorrectAliases": true,
+	"powershell.codeFormatting.ignoreOneLineBlock": false,
+	"powershell.codeFormatting.pipelineIndentationStyle": "NoIndentation",
+	"powershell.codeFormatting.preset": "OTBS",
+	"powershell.codeFormatting.trimWhitespaceAroundPipe": true,
+	"powershell.codeFormatting.useConstantStrings": true,
+	"powershell.codeFormatting.useCorrectCasing": true,
+	"powershell.scriptAnalysis.enable": true,
+	"powershell.scriptAnalysis.settingsPath": "./PSScriptAnalyzerSettings.psd1",
+	"yaml.schemas": {
+		"https://json.schemastore.org/github-issue-config.json": ".github/ISSUE_TEMPLATE/config.yml"
+	}
+}

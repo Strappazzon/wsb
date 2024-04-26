@@ -1,2 +1,4 @@
 theme/**
 !theme/.gitkeep
+
+config.wsb
