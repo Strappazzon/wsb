@@ -18,7 +18,7 @@ If you then still need to ask a question and need clarification you can [create 
 
 ## Issue Reporting and Feature Requests
 
-> [!IMPORTANT]
+> [!CAUTION]
 > If you found a security issue, **DO NOT** report it in the issue tracker or elsewhere in public.  
 > See: [Security Policy](https://github.com/Strappazzon/.github/blob/-/SECURITY.md).
 
