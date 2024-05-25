@@ -31,7 +31,7 @@ You can also create your configuration file with [WSBEditor](https://leestevetk.
 
 ## What the script does
 
-This script will launch at logon and will change and install the following:
+This script will run at logon and will change / install the following:
 
 ### Settings
 
@@ -48,7 +48,7 @@ This script will launch at logon and will change and install the following:
   - Disable animations
   - Disable Peek
   - Disable shadows
-  - Disabe transparency
+  - Disable transparency
 - Set Dark theme
 - Taskbar
   - Don't combine buttons
