@@ -204,28 +204,11 @@ Restart-Explorer
 
 #region winget
 
-# Create temporary folder for winget setup
-New-Item -Path "${env:TEMP}" -Name 'bootstrap-winget' -ItemType Directory | Out-Null
-
-# Download winget and its dependencies
-Write-Host 'Installing Windows Package Manager...' -ForegroundColor Blue
-Write-Host '- Downloading dependencies...' -ForegroundColor Blue
 # https://learn.microsoft.com/en-us/windows/package-manager/winget/#install-winget-on-windows-sandbox
-# https://learn.microsoft.com/en-us/troubleshoot/developer/visualstudio/cpp/libraries/c-runtime-packages-desktop-bridge
-Invoke-WebRequest -Uri 'https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx' -OutFile "${env:TEMP}\bootstrap-winget\Microsoft.VCLibs.x64.14.00.Desktop.appx"
-Invoke-WebRequest -Uri 'https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.8.6/Microsoft.UI.Xaml.2.8.x64.appx' -OutFile "${env:TEMP}\bootstrap-winget\Microsoft.UI.Xaml.2.8.x64.appx"
-Invoke-WebRequest -Uri 'https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle' -OutFile "${env:TEMP}\bootstrap-winget\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-
-# Install winget and its dependencies
-Write-Host '- Installing dependencies...' -ForegroundColor Blue
-Add-AppxPackage -Path "${env:TEMP}\bootstrap-winget\Microsoft.VCLibs.x64.14.00.Desktop.appx"
-Add-AppxPackage -Path "${env:TEMP}\bootstrap-winget\Microsoft.UI.Xaml.2.8.x64.appx"
-Add-AppxPackage -Path "${env:TEMP}\bootstrap-winget\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-
-# Remove temporary files
-Write-Host '- Cleaning up...' -ForegroundColor Blue
-Get-ChildItem -Path "${env:TEMP}\bootstrap-winget" -Recurse | Remove-Item -Force -Recurse
-Remove-Item "${env:TEMP}\bootstrap-winget" -Force
+Write-Host 'Installing Windows Package Manager...' -ForegroundColor Blue
+Install-PackageProvider -Name NuGet -Force | Out-Null
+Install-Module -Name Microsoft.WinGet.Client -Force -Repository PSGallery | Out-Null
+Repair-WinGetPackageManager
 
 # Install packages (msstore)
 @(
