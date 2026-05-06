@@ -115,6 +115,10 @@ Function Test-WinVersion([String]$MatchString) {
 
 Write-Host 'Applying tweaks...' -ForegroundColor Blue
 
+# https://github.com/microsoft/Windows-Sandbox/issues/68#issuecomment-2684473932
+Set-RegistryValue -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CI\Policy"                       -Name 'VerifiedAndReputablePolicyState' -Value  0                           -Type DWord
+$null = CiTool.exe -r --json
+
 # Performance
 # Set-RegistryValue -Path 'HKCU:\Control Panel\Desktop'                                            -Name 'DragFullWindows'       -Value 0                                      -Type String
 Set-RegistryValue -Path 'HKCU:\Control Panel\Desktop'                                            -Name 'MenuShowDelay'         -Value 200                                    -Type String
