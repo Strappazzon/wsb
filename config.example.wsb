@@ -1,7 +1,7 @@
 <Configuration>
 	<MappedFolders>
 		<MappedFolder>
-			<HostFolder>C:\Users\Username\wsb</HostFolder>
+			<HostFolder>.</HostFolder>
 			<SandboxFolder>C:\bootstrap</SandboxFolder>
 			<ReadOnly>true</ReadOnly>
 		</MappedFolder>
